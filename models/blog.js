@@ -1,10 +1,8 @@
-require('dotenv').config()
+const { MONGO_URL } = require('../utils/config')
 const mongoose = require('mongoose')
 
-const url = process.env.MONGO_URL
-
 mongoose
-  .connect(url)
+  .connect(MONGO_URL)
   .then((_) => {
     console.log('connected')
   })
@@ -17,6 +15,14 @@ const blogSchema = new mongoose.Schema({
   author: String,
   url: String,
   likes: Number
+})
+
+blogSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString()
+    delete returnedObject._id
+    delete returnedObject.__v
+  }
 })
 
 module.exports = mongoose.model('Blog', blogSchema)
