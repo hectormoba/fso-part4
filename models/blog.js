@@ -1,19 +1,13 @@
-const { MONGO_URL } = require('../utils/config')
 const mongoose = require('mongoose')
 
-mongoose
-  .connect(MONGO_URL)
-  .then((_) => {
-    console.log('connected')
-  })
-  .catch((error) => {
-    console.log('error connecting', error.message)
-  })
-
-const blogSchema = new mongoose.Schema({
+const blogSchema = mongoose.Schema({
   title: String,
   author: String,
   url: String,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
   likes: Number
 })
 

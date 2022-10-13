@@ -14,8 +14,11 @@ const favoriteBlog = (blogs) => {
       : [...blogs].sort((a, b) => b.likes - a.likes)[0]
 }
 
+const containAtLeastXChar = (string, numOfChar) => string.length >= numOfChar
+
 module.exports = {
   dummy,
   totalLikes,
-  favoriteBlog
+  favoriteBlog,
+  containAtLeastXChar
 }
